@@ -7,15 +7,32 @@ class HomePageTemp extends StatelessWidget {
     List<Widget> list = new List<Widget>();
 
     for (var opt in _options) {
-      list.add(
-        ListTile(
-          title: Text(opt),
-        ),
-      );
-      list.add(Divider());
+      list
+        ..add(
+          ListTile(
+            title: Text(opt),
+          ),
+        )
+        ..add(
+          Divider(),
+        );
     }
 
     return list;
+  }
+
+  List<Widget> _createItemsShort() {
+    return _options.map((String opt) {
+      return Column(children: <Widget>[
+        ListTile(
+          title: Text(opt),
+          leading: Icon(Icons.account_balance_wallet),
+          trailing: Icon(Icons.arrow_right),
+          onTap: (){},
+        ),
+        Divider()
+      ]);
+    }).toList();
   }
 
   @override
@@ -24,7 +41,7 @@ class HomePageTemp extends StatelessWidget {
       appBar: AppBar(
         title: Text("Components Temp"),
       ),
-      body: ListView(children: _createItems()),
+      body: ListView(children: _createItemsShort()),
     );
   }
 }
