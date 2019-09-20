@@ -1,4 +1,5 @@
-import 'package:components/src/pages/home_page.dart';
+import 'package:components/src/pages/alert_page.dart';
+import 'package:components/src/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -7,7 +8,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return MaterialApp(
-      home: HomePage()
+      routes: getApplicationRoutes(),
+      onGenerateRoute: (RouteSettings settings) {
+        return MaterialPageRoute(
+            builder: (BuildContext context) => AlertPage());
+      },
+      initialRoute: "/",
     );
   }
 }

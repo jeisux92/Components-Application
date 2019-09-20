@@ -1,8 +1,8 @@
-import 'dart:io';
 
 import 'package:components/src/providers/menu_provider.dart';
 import 'package:components/src/utils/icon_string_util.dart';
 import 'package:flutter/material.dart';
+
 
 class HomePage extends StatelessWidget {
   @override
@@ -23,13 +23,14 @@ class HomePage extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
           if (snapshot.hasData) {
             return ListView(
-              children: _createListItems(snapshot.data),
+              children: _createListItems(snapshot.data, context),
             );
           }
+          return null;
         });
   }
 
-  List<Widget> _createListItems(List<dynamic> data) {
+  List<Widget> _createListItems(List<dynamic> data, BuildContext context) {
     return data.map((opt) {
       return Column(
         children: <Widget>[
@@ -37,7 +38,12 @@ class HomePage extends StatelessWidget {
             title: Text(opt['texto']),
             leading: getIcon(opt['icon']),
             trailing: Icon(Icons.keyboard_arrow_right, color: Colors.blue),
-            onTap: () {},
+            onTap: () {
+              // final route =
+              //     MaterialPageRoute(builder: (context) => AvatarPage());
+              // Navigator.push(context, route);
+              Navigator.pushNamed(context, opt['ruta']);
+            },
           ),
         ],
       );
