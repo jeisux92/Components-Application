@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:components/src/providers/menu_provider.dart';
+import 'package:components/src/utils/icon_string_util.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -16,31 +17,30 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _list() {
-    menuProvider.options;
-    return ListView(
-      children: _createListItems(),
-    );
+    return FutureBuilder(
+        future: menuProvider.loadData(),
+        initialData: [],
+        builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
+          if (snapshot.hasData) {
+            return ListView(
+              children: _createListItems(snapshot.data),
+            );
+          }
+        });
   }
 
-  List<Widget> _createListItems() {
-    final client = HttpClient();
-    return [
-      ListTile(
-        title: Text("Hello world"),
-      ),
-      Divider(),
-      ListTile(
-        title: Text("Hello world"),
-      ),
-      Divider(),
-      ListTile(
-        title: Text("Hello world"),
-      ),
-      Divider(),
-      ListTile(
-        title: Text("Hello world"),
-      ),
-      Divider(),
-    ];
+  List<Widget> _createListItems(List<dynamic> data) {
+    return data.map((opt) {
+      return Column(
+        children: <Widget>[
+          ListTile(
+            title: Text(opt['texto']),
+            leading: getIcon(opt['icon']),
+            trailing: Icon(Icons.keyboard_arrow_right, color: Colors.blue),
+            onTap: () {},
+          ),
+        ],
+      );
+    }).toList();
   }
 }
