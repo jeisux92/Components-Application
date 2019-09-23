@@ -119,19 +119,15 @@ class CardPage extends StatelessWidget {
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10.0),
-        child: Column(
-          children: <Widget>[
-            FadeInImage(
-              image: NetworkImage(
-                  "https://images.unsplash.com/photo-1546268060-2592ff93ee24?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80"),
-              placeholder: AssetImage("assets/jar-loading.gif"),
-              fadeInDuration: const Duration(
-                milliseconds: 200,
-              ),
-              height: 300,
-              fit: BoxFit.cover,
-            ),
-          ],
+        child: FadeInImage(
+          image: NetworkImage(
+              "https://images.unsplash.com/photo-1546268060-2592ff93ee24?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80"),
+          placeholder: AssetImage("assets/jar-loading.gif"),
+          fadeInDuration: const Duration(
+            milliseconds: 200,
+          ),
+          height: 300,
+          fit: BoxFit.cover,
         ),
       ),
     );

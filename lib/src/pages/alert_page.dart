@@ -14,7 +14,7 @@ class AlertPage extends StatelessWidget {
             "Show alert",
           ),
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
           textColor: Colors.white,
           color: Colors.blue,
           onPressed: () => _showAlert(context),
