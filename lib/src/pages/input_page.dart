@@ -10,6 +10,9 @@ class _InputPageState extends State<InputPage> {
   String _email = "";
   String _password = "";
   String _date = "";
+  String _dropDownValue = "X-Ray";
+  TextEditingController _inputFieldDateController = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +28,9 @@ class _InputPageState extends State<InputPage> {
             Divider(),
             _createPassword(),
             Divider(),
-            _createDate(),
+            _createDate(context),
+            Divider(),
+            _createDropDown(),
             Divider(),
             _createPerson(),
           ]),
@@ -36,46 +41,19 @@ class _InputPageState extends State<InputPage> {
     return TextField(
       textCapitalization: TextCapitalization.characters,
       decoration: InputDecoration(
-          hoverColor: Colors.pink,
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(
-              color: Colors.red,
-            ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.pink,
-            ),
-            borderRadius: BorderRadius.circular(10.0),
-          ),
           counter: Text("Letras ${this._nombre.length}"),
           counterStyle: TextStyle(
             color: Colors.pink,
           ),
           hintText: "Nombre de la persona",
-          hintStyle: TextStyle(
-            color: Colors.pink,
-          ),
           labelText: "Nombre",
-          labelStyle: TextStyle(
-            color: Colors.pink,
-          ),
           helperText: "Solo el nombre",
-          helperStyle: TextStyle(
-            color: Colors.pink,
-          ),
           suffixIcon: Icon(
             Icons.accessibility,
-            color: Colors.pink,
           ),
           icon: Icon(
             Icons.account_circle,
-            color: Colors.pink,
           )),
-      style: TextStyle(
-        decorationColor: Colors.pink,
-      ),
       onChanged: (String value) {
         setState(() {
           _nombre = value;
@@ -85,37 +63,43 @@ class _InputPageState extends State<InputPage> {
   }
 
   Widget _createDropDown() {
-    return DropdownButton<String>(
-      underline: Container(
-        height: 2,
-        color: Colors.deepPurpleAccent,
-      ),
-      style: TextStyle(color: Colors.deepPurple),
-      elevation: 16,
-      iconSize: 24,
-      value: "1",
-      onChanged: (String value) {},
-      items: [
-        DropdownMenuItem(
-          value: "1",
-          child: Text("1"),
+    return Row(
+      children: <Widget>[
+        Icon(Icons.select_all),
+        DropdownButton(
+          value: _dropDownValue,
+          onChanged: (String value) {
+            setState(() {
+              _dropDownValue = value;
+            });
+          },
+          items: _getDropDownOptions(),
         ),
-        DropdownMenuItem(
-          value: "2",
-          child: Text("2"),
-        ),
-        DropdownMenuItem(
-          value: "3",
-          child: Text("3"),
-        )
       ],
     );
+  }
+
+  List<String> _superPowers = [
+    "X-Ray",
+    "Super force",
+    "Storm",
+    "Speed",
+    "Swimming"
+  ];
+  List<DropdownMenuItem<String>> _getDropDownOptions() {
+    return _superPowers.map((i) {
+      return DropdownMenuItem(
+        value: i,
+        child: Text("$i"),
+      );
+    }).toList();
   }
 
   Widget _createPerson() {
     return ListTile(
       title: Text("Nombre es: $_nombre"),
       subtitle: Text("Email: $_email"),
+      trailing: Text(_dropDownValue),
     );
   }
 
@@ -123,37 +107,13 @@ class _InputPageState extends State<InputPage> {
     return TextField(
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
-          hoverColor: Colors.pink,
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(
-              color: Colors.red,
-            ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.pink,
-            ),
-            borderRadius: BorderRadius.circular(10.0),
-          ),
           hintText: "Email",
-          hintStyle: TextStyle(
-            color: Colors.pink,
-          ),
           labelText: "Email",
-          labelStyle: TextStyle(
-            color: Colors.pink,
-          ),
-          helperStyle: TextStyle(
-            color: Colors.pink,
-          ),
           suffixIcon: Icon(
             Icons.alternate_email,
-            color: Colors.pink,
           ),
           icon: Icon(
             Icons.email,
-            color: Colors.pink,
           ),
         ),
         onChanged: (String value) => setState(() {
@@ -165,37 +125,13 @@ class _InputPageState extends State<InputPage> {
     return TextField(
         obscureText: true,
         decoration: InputDecoration(
-          hoverColor: Colors.pink,
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(
-              color: Colors.red,
-            ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.pink,
-            ),
-            borderRadius: BorderRadius.circular(10.0),
-          ),
           hintText: "Password",
-          hintStyle: TextStyle(
-            color: Colors.pink,
-          ),
           labelText: "Password",
-          labelStyle: TextStyle(
-            color: Colors.pink,
-          ),
-          helperStyle: TextStyle(
-            color: Colors.pink,
-          ),
           suffixIcon: Icon(
             Icons.lock_open,
-            color: Colors.pink,
           ),
           icon: Icon(
             Icons.lock,
-            color: Colors.pink,
           ),
         ),
         onChanged: (String value) => setState(() {
@@ -203,45 +139,41 @@ class _InputPageState extends State<InputPage> {
             }));
   }
 
-  Widget _createDate() {
+  Widget _createDate(BuildContext context) {
     return TextField(
-        keyboardType: TextInputType.datetime,
-        decoration: InputDecoration(
-          hoverColor: Colors.pink,
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(
-              color: Colors.red,
-            ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.pink,
-            ),
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          hintText: "Password",
-          hintStyle: TextStyle(
-            color: Colors.pink,
-          ),
-          labelText: "Password",
-          labelStyle: TextStyle(
-            color: Colors.pink,
-          ),
-          helperStyle: TextStyle(
-            color: Colors.pink,
-          ),
-          suffixIcon: Icon(
-            Icons.lock_open,
-            color: Colors.pink,
-          ),
-          icon: Icon(
-            Icons.lock,
-            color: Colors.pink,
-          ),
+      keyboardType: TextInputType.datetime,
+      controller: _inputFieldDateController,
+      decoration: InputDecoration(
+        hintText: "Fecha de nacimiento",
+        labelText: "Fecha de nacimiento",
+        suffixIcon: Icon(
+          Icons.calendar_today,
         ),
-        onChanged: (String value) => setState(() {
-              _password = value;
-            }));
+        icon: Icon(
+          Icons.lock,
+        ),
+      ),
+      onTap: () {
+        FocusScope.of(context).requestFocus(new FocusNode());
+        _selectDate(context);
+      },
+    );
+  }
+
+  _selectDate(BuildContext context) async {
+    DateTime picked = await showDatePicker(
+      context: context,
+      firstDate: new DateTime(2018),
+      initialDate: new DateTime.now(),
+      lastDate: new DateTime(2025),
+      locale: Localizations.localeOf(context),
+    );
+
+    if (picked != null) {
+      setState(() {
+        _date = picked.toString();
+        _inputFieldDateController.text = _date;
+      });
+    }
   }
 }
