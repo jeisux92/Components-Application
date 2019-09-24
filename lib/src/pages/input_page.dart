@@ -6,6 +6,10 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
+  String _nombre = "s";
+  String _email = "";
+  String _password = "";
+  String _date = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,28 +20,54 @@ class _InputPageState extends State<InputPage> {
           padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
           children: <Widget>[
             _createInput(),
+            Divider(),
+            _createEmail(),
+            Divider(),
+            _createPassword(),
+            Divider(),
+            _createDate(),
+            Divider(),
+            _createPerson(),
           ]),
     );
   }
 
   Widget _createInput() {
     return TextField(
-      textCapitalization: TextCapitalization.sentences,
+      textCapitalization: TextCapitalization.characters,
       decoration: InputDecoration(
+          hoverColor: Colors.pink,
           enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
             borderSide: BorderSide(
               color: Colors.red,
-              width: 10.0,
             ),
           ),
-          border: OutlineInputBorder(),
-          hoverColor: Colors.pink,
-          counter: Text("0/20"),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.pink,
+            ),
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          counter: Text("Letras ${this._nombre.length}"),
+          counterStyle: TextStyle(
+            color: Colors.pink,
+          ),
           hintText: "Nombre de la persona",
+          hintStyle: TextStyle(
+            color: Colors.pink,
+          ),
           labelText: "Nombre",
+          labelStyle: TextStyle(
+            color: Colors.pink,
+          ),
           helperText: "Solo el nombre",
+          helperStyle: TextStyle(
+            color: Colors.pink,
+          ),
           suffixIcon: Icon(
             Icons.accessibility,
+            color: Colors.pink,
           ),
           icon: Icon(
             Icons.account_circle,
@@ -46,6 +76,11 @@ class _InputPageState extends State<InputPage> {
       style: TextStyle(
         decorationColor: Colors.pink,
       ),
+      onChanged: (String value) {
+        setState(() {
+          _nombre = value;
+        });
+      },
     );
   }
 
@@ -75,5 +110,138 @@ class _InputPageState extends State<InputPage> {
         )
       ],
     );
+  }
+
+  Widget _createPerson() {
+    return ListTile(
+      title: Text("Nombre es: $_nombre"),
+      subtitle: Text("Email: $_email"),
+    );
+  }
+
+  Widget _createEmail() {
+    return TextField(
+        keyboardType: TextInputType.emailAddress,
+        decoration: InputDecoration(
+          hoverColor: Colors.pink,
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: BorderSide(
+              color: Colors.red,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.pink,
+            ),
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          hintText: "Email",
+          hintStyle: TextStyle(
+            color: Colors.pink,
+          ),
+          labelText: "Email",
+          labelStyle: TextStyle(
+            color: Colors.pink,
+          ),
+          helperStyle: TextStyle(
+            color: Colors.pink,
+          ),
+          suffixIcon: Icon(
+            Icons.alternate_email,
+            color: Colors.pink,
+          ),
+          icon: Icon(
+            Icons.email,
+            color: Colors.pink,
+          ),
+        ),
+        onChanged: (String value) => setState(() {
+              _email = value;
+            }));
+  }
+
+  Widget _createPassword() {
+    return TextField(
+        obscureText: true,
+        decoration: InputDecoration(
+          hoverColor: Colors.pink,
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: BorderSide(
+              color: Colors.red,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.pink,
+            ),
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          hintText: "Password",
+          hintStyle: TextStyle(
+            color: Colors.pink,
+          ),
+          labelText: "Password",
+          labelStyle: TextStyle(
+            color: Colors.pink,
+          ),
+          helperStyle: TextStyle(
+            color: Colors.pink,
+          ),
+          suffixIcon: Icon(
+            Icons.lock_open,
+            color: Colors.pink,
+          ),
+          icon: Icon(
+            Icons.lock,
+            color: Colors.pink,
+          ),
+        ),
+        onChanged: (String value) => setState(() {
+              _password = value;
+            }));
+  }
+
+  Widget _createDate() {
+    return TextField(
+        keyboardType: TextInputType.datetime,
+        decoration: InputDecoration(
+          hoverColor: Colors.pink,
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: BorderSide(
+              color: Colors.red,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.pink,
+            ),
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          hintText: "Password",
+          hintStyle: TextStyle(
+            color: Colors.pink,
+          ),
+          labelText: "Password",
+          labelStyle: TextStyle(
+            color: Colors.pink,
+          ),
+          helperStyle: TextStyle(
+            color: Colors.pink,
+          ),
+          suffixIcon: Icon(
+            Icons.lock_open,
+            color: Colors.pink,
+          ),
+          icon: Icon(
+            Icons.lock,
+            color: Colors.pink,
+          ),
+        ),
+        onChanged: (String value) => setState(() {
+              _password = value;
+            }));
   }
 }
